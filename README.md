@@ -1,15 +1,26 @@
-# how to go about this repo
-## coded scripts
-1) the coded scripts contain all the scripts needed to be run to either fetch results like (top50_analysis.py, longest_Seq.py)
-2) to generate new text you need to run test_withpen.py with 
-the following command:
-torchrun --nproc_per_node 1 /scratch/work/kharbap1/llama/coded_scripts/test_withpen.py     --ckpt_dir llama-2-7b/     --tokenizer_path tokenizer.model     --max_seq_len 512 --max_batch_size 6 --penalty 1.1 --output_file /scratch/work/kharbap1/generated_data/wiki_test_gen_1.1_128.txt
+# LLaMA Text Generation and Analysis
 
-### llama
-my_generation.py is the script called while generation, edit has been made by adding penalty implemented from CTRL paper, with few changes like penalty window and handling negative & positive logits.
+This repository contains scripts and data for generating text using the LLaMA model with various penalties and analyzing the generated text.
 
-#### generated data
-1)this folder has all the datasets which have been generated, the penalty used and the window size has been appended in the name of the file itself (wiki_test_gen_1.3_256)
-given 512 tokens iteratively to generate the next 512 tokens.
+## Repository Structure
 
-2)results file contain analysis of avg non broken sentences, longest repeating subsequences etc. 
+### Coded Scripts
+This directory contains all the necessary scripts to run and fetch results:
+
+1. `top50_analysis.py` - Script to analyze the top 50 generated sequences.
+2. `longest_Seq.py` - Script to find the longest repeating subsequences in the generated text.
+3. `test_withpen.py` - Script to generate new text with specified penalties.
+
+#### Running Text Generation
+
+To generate new text, run the `test_withpen.py` script with the following command:
+
+```sh
+torchrun --nproc_per_node 1 /scratch/work/kharbap1/llama/coded_scripts/test_withpen.py \
+    --ckpt_dir llama-2-7b/ \
+    --tokenizer_path tokenizer.model \
+    --max_seq_len 512 \
+    --max_batch_size 6 \
+    --penalty 1.1 \
+    --output_file /scratch/work/kharbap1/generated_data/wiki_test_gen_1.1_128.txt
+
